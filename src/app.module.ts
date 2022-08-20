@@ -3,12 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 // import { CoffeesController } from './coffees/coffees.controller';
 // import { CoffeesService } from './coffees/coffees.service';
-import { CoffeeModule } from './coffee/coffee.module';
+import { CoffeesModule } from './coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    CoffeeModule,
+    CoffeesModule,
     TypeOrmModule.forRoot({
       type: 'postgres', // type of our database
       host: 'localhost', // database host
