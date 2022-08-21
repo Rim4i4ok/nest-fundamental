@@ -69,7 +69,6 @@ export class CoffeeBrandsFactory {
     {
       provide: COFFEE_BRANDS,
       useValue: ['nescafe', 'brew'],
-      scope: Scope.TRANSIENT,
     },
   ],
   exports: [CoffeesService],

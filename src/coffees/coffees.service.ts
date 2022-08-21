@@ -9,7 +9,7 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 
-@Injectable()
+// @Injectable()
 @Injectable({ scope: Scope.REQUEST })
 export class CoffeesService {
   constructor(
@@ -23,8 +23,8 @@ export class CoffeesService {
 
     @Inject(COFFEE_BRANDS) coffeBrands: string[],
   ) {
-    console.log(coffeBrands);
-    // console.log('Initiated');
+    // console.log(coffeBrands);
+    console.log('CoffeesService initiated');
   }
 
   findAll(pagginationQuery: PaginationQueryDto) {
