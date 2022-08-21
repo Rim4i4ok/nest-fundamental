@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from 'src/events/entities/event.entity';
 import { DataSource, Repository } from 'typeorm';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { COFFEE_BRANDS } from './coffees.constants';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
@@ -18,7 +19,11 @@ export class CoffeesService {
     private readonly flavorRepository: Repository<Flavor>,
 
     private readonly dataSource: DataSource,
-  ) {}
+
+    @Inject(COFFEE_BRANDS) coffeBrands: string[],
+  ) {
+    console.log(coffeBrands);
+  }
 
   findAll(pagginationQuery: PaginationQueryDto) {
     const { limit, offset } = pagginationQuery;
