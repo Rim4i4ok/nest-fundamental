@@ -9,6 +9,10 @@ import { Flavor } from './entities/flavor.entity';
 
 // class MockCoffeeService {}
 
+class ConfigService {}
+class DevelopmentConfigService {}
+class ProductConfigService {}
+
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
   controllers: [CoffeesController],
@@ -17,6 +21,13 @@ import { Flavor } from './entities/flavor.entity';
   providers: [
     CoffeesService,
     { provide: COFFEE_BRANDS, useValue: ['nescafe', 'brew'] },
+    {
+      provide: ConfigService,
+      useClass:
+        process.env.NODE_ENV === 'development'
+          ? DevelopmentConfigService
+          : ProductConfigService,
+    },
   ],
   exports: [CoffeesService],
 })
