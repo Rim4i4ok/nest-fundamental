@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 // import { CoffeesService } from './coffees/coffees.service';
 import { CoffeesModule } from './coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true, // models will be loaded automatically
       synchronize: true, // your entities will be synced with the database(recommended: disable in prod)
     }),
+    CoffeeRatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
