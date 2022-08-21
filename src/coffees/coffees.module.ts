@@ -1,4 +1,4 @@
-import { Injectable, Module } from '@nestjs/common';
+import { Injectable, Module, Scope } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeesController } from 'src/coffees/coffees.controller';
 import { CoffeesService } from 'src/coffees/coffees.service';
@@ -48,20 +48,28 @@ export class CoffeeBrandsFactory {
   //     inject: [CoffeeBrandsFactory],
   //   },
   // ],
+  // providers: [
+  //   CoffeesService,
+  //   {
+  //     provide: COFFEE_BRANDS,
+  //     // Note "async" here, and Promise/Async event inside the Factory function
+  //     // Could be a database connection / API call / etc
+  //     // In our case we're just "mocking" this type of event with a Promise
+  //     useFactory: async (connection: Connection): Promise<string[]> => {
+  //       // const coffeeBrands = await connection.query('SELECT * ...');
+  //       const coffeeBrands = await Promise.resolve(['buddy brew', 'nescafe']);
+  //       console.log('async!');
+  //       return coffeeBrands;
+  //     },
+  //     inject: [Connection],
+  //   },
+  // ],
   providers: [
     CoffeesService,
     {
       provide: COFFEE_BRANDS,
-      // Note "async" here, and Promise/Async event inside the Factory function
-      // Could be a database connection / API call / etc
-      // In our case we're just "mocking" this type of event with a Promise
-      useFactory: async (connection: Connection): Promise<string[]> => {
-        // const coffeeBrands = await connection.query('SELECT * ...');
-        const coffeeBrands = await Promise.resolve(['buddy brew', 'nescafe']);
-        console.log('async!');
-        return coffeeBrands;
-      },
-      inject: [Connection],
+      useValue: ['nescafe', 'brew'],
+      scope: Scope.TRANSIENT,
     },
   ],
   exports: [CoffeesService],

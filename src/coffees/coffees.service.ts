@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from 'src/events/entities/event.entity';
 import { DataSource, Repository } from 'typeorm';
@@ -10,6 +10,7 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 
 @Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
@@ -23,6 +24,7 @@ export class CoffeesService {
     @Inject(COFFEE_BRANDS) coffeBrands: string[],
   ) {
     console.log(coffeBrands);
+    // console.log('Initiated');
   }
 
   findAll(pagginationQuery: PaginationQueryDto) {
