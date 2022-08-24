@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
   Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
@@ -16,15 +18,17 @@ import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
 
+// @UsePipes(ValidationPipe) - Controller-scoped
+// @UsePipes(new CustomValidationPipe())
 @Controller('coffees')
 export class CoffeesController {
   constructor(
-    private readonly coffeesService: CoffeesService,
-  ) // @Inject(REQUEST) private readonly request: Request, // Can slow performance
-  {
+    private readonly coffeesService: CoffeesService, // @Inject(REQUEST) private readonly request: Request, // Can slow performance
+  ) {
     console.log('CoffeesController created');
   }
 
+  // @UsePipes(ValidationPipe) - Method-scoped
   @Get()
   findAll(@Query() pagginationQuery: PaginationQueryDto) {
     // findAll(@Res() response) {
@@ -53,6 +57,7 @@ export class CoffeesController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+    // update(@Param('id') id: string, @Body(ValidationPipe) updateCoffeeDto: UpdateCoffeeDto) { - Param-scoped
     // return `This action updates ${id} coffee`;
     return this.coffeesService.update(id, updateCoffeeDto);
   }
