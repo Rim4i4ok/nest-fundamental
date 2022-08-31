@@ -16,6 +16,7 @@ import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
 import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
 import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
+import { Protocol } from 'src/common/decoratos/protocol.decorator';
 import { Public } from 'src/common/decoratos/public.decorator';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
@@ -35,7 +36,11 @@ export class CoffeesController {
   // @SetMetadata('isPublick', true)
   @Public()
   @Get()
-  async findAll(@Query() pagginationQuery: PaginationQueryDto) {
+  async findAll(
+    @Protocol('https') protocol: string,
+    @Query() pagginationQuery: PaginationQueryDto,
+  ) {
+    console.log(protocol);
     // await new Promise((resolve) => setTimeout(resolve, 5000));
     // findAll(@Res() response) {
     // const { limit, offset } = pagginationQuery;
