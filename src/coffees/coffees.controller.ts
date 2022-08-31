@@ -17,6 +17,7 @@ import { Request } from 'express';
 import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
 import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
 import { Public } from 'src/common/decoratos/public.decorator';
+import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
 
@@ -68,8 +69,8 @@ export class CoffeesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     // return `This action removes ${id} coffee`;
-    return this.coffeesService.remove(id);
+    return this.coffeesService.remove(id.toString());
   }
 }
