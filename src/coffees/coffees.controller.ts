@@ -13,7 +13,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
-import { ApiForbiddenResponse, ApiResponse } from '@nestjs/swagger';
+import { ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
 import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
@@ -25,6 +25,7 @@ import { CoffeesService } from './coffees.service';
 
 // @UsePipes(ValidationPipe) - Controller-scoped
 // @UsePipes(new CustomValidationPipe())
+@ApiTags('coffees')
 @Controller('coffees')
 export class CoffeesController {
   constructor(
@@ -76,6 +77,7 @@ export class CoffeesController {
     return this.coffeesService.update(id, updateCoffeeDto);
   }
 
+  @ApiTags('coffees', 'remove')
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     // return `This action removes ${id} coffee`;
