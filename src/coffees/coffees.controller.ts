@@ -13,6 +13,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
+import { ApiForbiddenResponse, ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
 import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
 import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
@@ -34,6 +35,8 @@ export class CoffeesController {
 
   // @UsePipes(ValidationPipe) - Method-scoped
   // @SetMetadata('isPublick', true)
+  // @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Public()
   @Get()
   async findAll(
