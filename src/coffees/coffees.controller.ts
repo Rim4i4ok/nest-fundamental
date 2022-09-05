@@ -15,11 +15,11 @@ import {
 import { REQUEST } from '@nestjs/core';
 import { ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
-import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
-import { Protocol } from 'src/common/decoratos/protocol.decorator';
-import { Public } from 'src/common/decoratos/public.decorator';
-import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
+import { CreateCoffeeDto } from '../coffees/dto/create-coffee.dto';
+import { UpdateCoffeeDto } from '../coffees/dto/update-coffee.dto';
+import { Protocol } from '../common/decoratos/protocol.decorator';
+import { Public } from '../common/decoratos/public.decorator';
+import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
 
